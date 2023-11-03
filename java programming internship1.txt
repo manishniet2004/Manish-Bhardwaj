@@ -1,0 +1,173 @@
+TASK 1
+
+1. Generate a random number within a specified range, such as 1 to 100.
+
+2. Prompt the user to enter their guess for the generated number.
+
+3. Compare the user's guess with the generated number and provide feedback on whether the guess
+is correct, too high, or too low.
+
+4. Repeat steps 2 and 3 until the user guesses the correct number.
+
+You can incorporate additional details as follows:
+
+5. Limit the number of attempts the user has to guess the number.
+6. Add the option for multiple rounds, allowing the user to play again.
+7. Display the user's score, which can be based on the number of attempts taken or rounds won.
+
+
+import java.util.Scanner;
+import java.util.Random;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Random random = new Random();
+        
+        int target = random.nextInt(100) + 1;
+        int attempts = 0;
+
+        System.out.println("Welcome to Guess the Number!");
+
+        while (true) {
+            System.out.print("Guess the number (1-100): ");
+            int guess = input.nextInt();
+            attempts++;
+
+            if (guess < target)
+                System.out.println("Too low.");
+            else if (guess > target)
+                System.out.println("Too high.");
+            else {
+                System.out.println("Congratulations! You guessed it in " + attempts + " attempts.");
+                break;
+            }
+        }
+
+        input.close();
+    }
+}
+
+
+
+
+TASK 2
+
+Input: Take marks obtained (out of 100) in each subject.
+Calculate Total Marks: Sum up the marks obtained in all subjects.
+Calculate Average Percentage: Divide the total marks by the total number of subjects to get the
+average percentage.
+Grade Calculation: Assign grades based on the average percentage achieved.
+Display Results: Show the total marks, average percentage, and the corresponding grade to the user
+import java.util.Scanner;
+
+public class GradeCalculator {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter the number of subjects: ");
+        int numSubjects = input.nextInt();
+
+        int totalMarks = 0;
+
+        for (int i = 1; i <= numSubjects; i++) {
+            System.out.print("Marks in subject " + i + ": ");
+            totalMarks += input.nextInt();
+        }
+
+        double averagePercentage = (double) totalMarks / (numSubjects * 100) * 100;
+
+        char grade = (averagePercentage >= 90) ? 'A' : (averagePercentage >= 80) ? 'B' : (averagePercentage >= 70) ? 'C' : (averagePercentage >= 60) ? 'D' : 'F';
+
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Average Percentage: " + averagePercentage + "%");
+        System.out.println("Grade: " + grade);
+
+        input.close();
+    }
+}
+
+
+
+
+TASK 3
+
+1.Create a class to represent the ATM machine.
+
+2. Design the user interface for the ATM, including options such as withdrawing, depositing, and
+checking the balance.
+
+3. Implement methods for each option, such as withdraw(amount), deposit(amount), and
+checkBalance().
+
+4. Create a class to represent the user's bank account, which stores the account balance.
+
+5. Connect the ATM class with the user's bank account class to access and modify the account
+balance.
+
+6. Validate user input to ensure it is within acceptable limits (e.g., sufficient balance for withdrawals).
+
+7. Display appropriate messages to the user based on their chosen options and the success or failure
+of their transactions.
+
+ATM INTERFACE
+
+
+
+import java.util.Scanner;
+
+public class ATM {
+    private double balance;
+    private Scanner scanner = new Scanner(System.in);
+
+    public ATM(double initialBalance) {
+        balance = initialBalance;
+    }
+
+    public void checkBalance() {
+        System.out.println("Balance: $" + balance);
+    }
+
+    public void deposit() {
+        System.out.print("Enter deposit amount: $");
+        double amount = scanner.nextDouble();
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("$" + amount + " deposited successfully.");
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    public void withdraw() {
+        System.out.print("Enter withdrawal amount: $");
+        double amount = scanner.nextDouble();
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("$" + amount + " withdrawn successfully.");
+        } else {
+            System.out.println("Invalid withdrawal amount or insufficient balance.");
+        }
+    }
+
+    public static void main(String[] args) {
+        ATM atm = new ATM(1000);
+        int option;
+
+        do {
+            System.out.println("\nATM Menu:\n1. Check Balance\n2. Deposit\n3. Withdraw\n4. Exit");
+            System.out.print("Choose an option (1-4): ");
+            option = atm.scanner.nextInt();
+
+            switch (option) {
+                case 1: atm.checkBalance(); break;
+                case 2: atm.deposit(); break;
+                case 3: atm.withdraw(); break;
+                case 4: System.out.println("Goodbye!"); break;
+                default: System.out.println("Invalid option.");
+            }
+        } while (option != 4);
+
+        atm.scanner.close();
+    }
+}
