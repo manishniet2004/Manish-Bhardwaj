@@ -1,2 +1,2 @@
 # Manish-Bhardwaj
-JAVA
+Software developer
